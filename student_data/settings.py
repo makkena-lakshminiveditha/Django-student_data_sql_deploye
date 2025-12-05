@@ -80,32 +80,33 @@ WSGI_APPLICATION = 'student_data.wsgi.application'
 #     }
 # }
 import os
+import os
+
 if os.environ.get("RENDER"):
-# Production (Render + Railway MySQL)
-    DATABASES = {
-    "default": {
-    "ENGINE": "django.db.backends.mysq1",
-    "NAME": os.environ.get("MYSQLDATABASE"),
-    "USER": os.environ.get("MYSQLUSER"),
-    "PASSWORD": os.environ.get("MYSQLPASSWORD"),
-    "HOST": os.environ.get("MYSQLHOST"),
-    "PORT": os.environ.get("MYSQLPORT", "3306"),
-
-    }
-
-}
-else:
-# Local development
+    # Production (Render + Railway MySQL)
     DATABASES = {
         "default": {
-        "ENGINE": "django.db.backends.mysq1",
-        "NAME": "bank_project",
-        "USER": "root",
-        "PASSWORD": "Naganivi@123",
-        "HOST": "localhost",
-        "PORT": "3306",
+            "ENGINE": "django.db.backends.mysql",   # ✅ fixed
+            "NAME": os.environ.get("MYSQLDATABASE"),
+            "USER": os.environ.get("MYSQLUSER"),
+            "PASSWORD": os.environ.get("MYSQLPASSWORD"),
+            "HOST": os.environ.get("MYSQLHOST"),
+            "PORT": os.environ.get("MYSQLPORT", "3306"),
         }
     }
+else:
+    # Local development
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",   # ✅ fixed
+            "NAME": "bank_project",
+            "USER": "root",
+            "PASSWORD": "Naganivi@123",
+            "HOST": "localhost",
+            "PORT": "3306",
+        }
+    }
+
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
